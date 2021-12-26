@@ -1,0 +1,9 @@
+1. Create math library
+    1.1. Create matrix class (only 2D)
+
+2. Create each layer
+    2.1. Affine
+    2.2. 
+
+
+

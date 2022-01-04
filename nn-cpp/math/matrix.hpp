@@ -27,11 +27,11 @@ struct Matrix2D {
         for (int i = 0; i < (*this).height(); i++)
             for (int j = 0; j < rhs.width(); j++)
                 for (int k = 0; k < (*this).width(); k++)
-                    ret[i][j] += (*this)[i][k] + rhs[k][j];
+                    ret[i][j] += (*this)[i][k] * rhs[k][j];
         val.swap(ret);
         return *this;
     }
-    Matrix2D &operator*(Matrix2D &rhs) {
+    Matrix2D operator*(Matrix2D &rhs) {
         return (Matrix2D(*this) *= rhs);
     }
     Matrix2D &operator+=(float rhs) {
@@ -58,16 +58,16 @@ struct Matrix2D {
                 (*this)[i][j] /= rhs;
         return *this;
     }
-    Matrix2D &operator+(float rhs) {
+    Matrix2D operator+(float rhs) {
         return (Matrix2D(*this) += rhs);
     }
-    Matrix2D &operator-(float rhs) {
+    Matrix2D operator-(float rhs) {
         return (Matrix2D(*this) -= rhs);
     }
-    Matrix2D &operator*(float rhs) {
+    Matrix2D operator*(float rhs) {
         return (Matrix2D(*this) *= rhs);
     }
-    Matrix2D &operator/(float rhs) {
+    Matrix2D operator/(float rhs) {
         return (Matrix2D(*this) /= rhs);
     }
 

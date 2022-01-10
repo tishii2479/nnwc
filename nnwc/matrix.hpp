@@ -1,8 +1,10 @@
+#pragma once
+
 #include <cassert>
 #include <iostream>
 #include <vector>
 
-namespace nn_cpp {
+namespace nnwc {
 struct Matrix2D {
     std::vector<std::vector<float>> val;
 
@@ -97,4 +99,4 @@ struct Matrix2D {
         return val[i];
     }
 };
-}  // namespace nn_cpp
+}  // namespace nnwc

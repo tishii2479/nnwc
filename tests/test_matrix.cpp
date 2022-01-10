@@ -1,10 +1,10 @@
 #include <cassert>
 #include <iostream>
 
-#include "nn-cpp/math/math"
+#include "nnwc/all"
 
 void test_matrix_calculation() {
-    using namespace nn_cpp;
+    using namespace nnwc;
     // (5, 5)
     Matrix2D mat(5);
     assert(mat.height() == 5);
@@ -60,7 +60,5 @@ void test_matrix_calculation() {
 
 int main() {
     test_matrix_calculation();
-
-    std::cout << "Test passed!" << std::endl;
     return 0;
 }

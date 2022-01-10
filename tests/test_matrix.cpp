@@ -3,7 +3,7 @@
 
 #include "nnwc/all"
 
-void test_matrix_calculation() {
+void test_matrix_initialization() {
     using namespace nnwc;
     // (5, 5)
     Matrix2D mat(5);
@@ -18,9 +18,12 @@ void test_matrix_calculation() {
     assert(mat.width() == 3);
     mat[2][1] = 3;
     assert(mat[2][1] == 3);
+}
 
+void test_matrix_calculation() {
+    using namespace nnwc;
     // (3, 3)
-    mat = Matrix2D(3);
+    Matrix2D mat = Matrix2D(3);
     mat += 2;
     assert(mat[0][0] == 2);
     assert(mat[2][1] == 2);
@@ -59,6 +62,7 @@ void test_matrix_calculation() {
 }
 
 int main() {
+    test_matrix_initialization();
     test_matrix_calculation();
     return 0;
 }

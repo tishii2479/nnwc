@@ -41,7 +41,7 @@ def main():
         result = run_test(test_file)
         if result != 0:
             print('Test failed:', test_file, ', return code:', result)
-            break
+            return
         else:
             print('Test passed:', test_file, ', return code:', result)
 

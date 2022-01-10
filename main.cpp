@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "nnwc/nnwc"
+#include "nnwc/all"
 
 int main() {
     nnwc::Matrix2D mat({{3, 3},

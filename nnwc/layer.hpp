@@ -27,7 +27,7 @@ class Affine : public Layer {
     }
 
     Matrix2D backward(Matrix2D d_out) override {
-        return w;
+        return d_out;
     }
 };
 };  // namespace nnwc

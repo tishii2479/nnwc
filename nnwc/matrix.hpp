@@ -48,15 +48,6 @@ struct Matrix2D {
         val.swap(ret);
         return *this;
     }
-    Matrix2D operator+(Matrix2D &rhs) {
-        return (Matrix2D(*this) += rhs);
-    }
-    Matrix2D operator-(Matrix2D &rhs) {
-        return (Matrix2D(*this) -= rhs);
-    }
-    Matrix2D operator*(Matrix2D &rhs) {
-        return (Matrix2D(*this) *= rhs);
-    }
     Matrix2D &operator+=(float rhs) {
         for (int i = 0; i < height(); i++)
             for (int j = 0; j < width(); j++)
@@ -81,22 +72,55 @@ struct Matrix2D {
                 (*this)[i][j] /= rhs;
         return *this;
     }
-    Matrix2D operator+(float rhs) {
-        return (Matrix2D(*this) += rhs);
-    }
-    Matrix2D operator-(float rhs) {
-        return (Matrix2D(*this) -= rhs);
-    }
-    Matrix2D operator*(float rhs) {
-        return (Matrix2D(*this) *= rhs);
-    }
-    Matrix2D operator/(float rhs) {
-        return (Matrix2D(*this) /= rhs);
-    }
 
     std::vector<float> &operator[](int i) {
         assert(0 <= i && i < (int)val.size());
         return val[i];
     }
+
+    friend std::ostream &operator<<(std::ostream &os, Matrix2D &mat) {
+        for (int i = 0; i < mat.height(); i++) {
+            os << "[";
+            for (int j = 0; j < mat.width(); j++) {
+                os << mat[i][j] << (j + 1 == mat.width() ? "]\n" : ",");
+            }
+        }
+        return (os);
+    }
 };
+
+Matrix2D operator+(Matrix2D &lhs, Matrix2D &rhs) {
+    return Matrix2D(lhs) += rhs;
+}
+Matrix2D operator-(Matrix2D &lhs, Matrix2D &rhs) {
+    return Matrix2D(lhs) -= rhs;
+}
+Matrix2D operator*(Matrix2D &lhs, Matrix2D &rhs) {
+    return Matrix2D(lhs) *= rhs;
+}
+Matrix2D operator+(Matrix2D &lhs, float rhs) {
+    return Matrix2D(lhs) += rhs;
+}
+Matrix2D operator-(Matrix2D &lhs, float rhs) {
+    return Matrix2D(lhs) -= rhs;
+}
+Matrix2D operator*(Matrix2D &lhs, float rhs) {
+    return Matrix2D(lhs) *= rhs;
+}
+Matrix2D operator/(Matrix2D &lhs, float rhs) {
+    return Matrix2D(lhs) /= rhs;
+}
+bool operator==(Matrix2D &lhs, Matrix2D &rhs) {
+    if (lhs.height() != rhs.height() || lhs.width() != rhs.width())
+        return false;
+    float eps = 1e-5;
+    for (int i = 0; i < lhs.height(); i++)
+        for (int j = 0; j < lhs.width(); j++)
+            if (std::abs(lhs[i][j] - rhs[i][j]) > eps) return false;
+    return true;
+}
+bool operator==(Matrix2D &lhs, std::vector<std::vector<float>> &rhs) {
+    auto m = Matrix2D(rhs);
+    return lhs == m;
+}
 }  // namespace nnwc

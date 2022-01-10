@@ -20,9 +20,14 @@ void test_affine_layer_calculation() {
         {3, 6},
     }));
     Matrix2D x({{1, 2, 3}});
+
+    // Check forward
     Matrix2D y = affine.forward(x);
     assert(y[0][0] == 1 * 1 + 2 * 2 + 3 * 3);
     assert(y[0][1] == 1 * 4 + 2 * 5 + 3 * 6);
+
+    // Check backward
+    Matrix2D d_out({{3, -4, 2}});
 }
 
 int main() {

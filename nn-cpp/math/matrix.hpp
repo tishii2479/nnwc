@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 
+namespace nn_cpp {
 struct Matrix2D {
     std::vector<std::vector<float>> val;
 
@@ -21,6 +22,20 @@ struct Matrix2D {
         return (val[0].size());
     }
 
+    Matrix2D &operator+=(Matrix2D &rhs) {
+        assert((*this).width() == rhs.width() && (*this).height() == rhs.height());
+        for (int i = 0; i < (*this).height(); i++)
+            for (int j = 0; j < rhs.width(); j++)
+                (*this)[i][j] += rhs[i][j];
+        return *this;
+    }
+    Matrix2D &operator-=(Matrix2D &rhs) {
+        assert((*this).width() == rhs.width() && (*this).height() == rhs.height());
+        for (int i = 0; i < (*this).height(); i++)
+            for (int j = 0; j < rhs.width(); j++)
+                (*this)[i][j] -= rhs[i][j];
+        return *this;
+    }
     Matrix2D &operator*=(Matrix2D &rhs) {
         assert((*this).width() == rhs.height());
         std::vector<std::vector<float>> ret((*this).height(), std::vector<float>(rhs.width()));
@@ -30,6 +45,12 @@ struct Matrix2D {
                     ret[i][j] += (*this)[i][k] * rhs[k][j];
         val.swap(ret);
         return *this;
+    }
+    Matrix2D operator+(Matrix2D &rhs) {
+        return (Matrix2D(*this) += rhs);
+    }
+    Matrix2D operator-(Matrix2D &rhs) {
+        return (Matrix2D(*this) -= rhs);
     }
     Matrix2D operator*(Matrix2D &rhs) {
         return (Matrix2D(*this) *= rhs);
@@ -72,7 +93,8 @@ struct Matrix2D {
     }
 
     std::vector<float> &operator[](int i) {
-        assert(0 <= i && i < val.size());
+        assert(0 <= i && i < (int)val.size());
         return val[i];
     }
 };
+}  // namespace nn_cpp

@@ -25,40 +25,38 @@ void test_matrix_calculation() {
     // (3, 3)
     Matrix2D mat = Matrix2D(3);
     mat += 2;
-    assert(mat[0][0] == 2);
-    assert(mat[2][1] == 2);
+    assert(mat == Val2D({{2, 2, 2}, {2, 2, 2}, {2, 2, 2}}));
 
     mat -= 3;
-    assert(mat[0][0] == -1);
-    assert(mat[1][2] == -1);
+    assert(mat == Val2D({{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}));
 
     mat *= -6;
-    assert(mat[0][0] == 6);
-    assert(mat[1][2] == 6);
+    assert(mat == Val2D({{6, 6, 6}, {6, 6, 6}, {6, 6, 6}}));
 
     mat /= 3;
-    assert(mat[0][0] == 2);
-    assert(mat[1][2] == 2);
+    assert(mat == Val2D({{2, 2, 2}, {2, 2, 2}, {2, 2, 2}}));
 
     Matrix2D l({{1, 2},
                 {3, 4}});
     Matrix2D r({{2, 4},
                 {3, 3}});
     mat = l;
-    assert(mat[0][0] == 1);
-    assert(mat[1][1] == 4);
+    assert(mat == l);
 
     Matrix2D res = l * r;
-    assert(res[0][0] == (1 * 2 + 2 * 3));
-    assert(res[0][1] == (1 * 4 + 2 * 3));
+    Matrix2D expected({{1 * 2 + 2 * 3, 1 * 4 + 2 * 3},
+                       {3 * 2 + 4 * 3, 3 * 4 + 4 * 3}});
+    assert(res == expected);
 
     res = l + r;
-    assert(res[0][0] == (1 + 2));
-    assert(res[0][1] == (2 + 4));
+    expected = Val2D({{1 + 2, 2 + 4},
+                      {3 + 3, 4 + 3}});
+    assert(res == expected);
 
     res = l - r;
-    assert(res[0][0] == (1 - 2));
-    assert(res[0][1] == (2 - 4));
+    expected = Val2D({{1 - 2, 2 - 4},
+                      {3 - 3, 4 - 3}});
+    assert(res == expected);
 }
 
 int main() {

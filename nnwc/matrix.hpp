@@ -5,8 +5,9 @@
 #include <vector>
 
 namespace nnwc {
+typedef std::vector<std::vector<float>> Val2D;
 struct Matrix2D {
-    std::vector<std::vector<float>> val;
+    Val2D val;
 
     Matrix2D() {}
     Matrix2D(int n) : Matrix2D(n, n) {}
@@ -14,7 +15,7 @@ struct Matrix2D {
         val.resize(h);
         for (int i = 0; i < h; i++) val[i].resize(w);
     }
-    Matrix2D(std::vector<std::vector<float>> v) : val(v) {}
+    Matrix2D(Val2D v) : val(v) {}
 
     int height() const {
         return (val.size());
@@ -40,7 +41,7 @@ struct Matrix2D {
     }
     Matrix2D &operator*=(Matrix2D &rhs) {
         assert((*this).width() == rhs.height());
-        std::vector<std::vector<float>> ret((*this).height(), std::vector<float>(rhs.width()));
+        Val2D ret((*this).height(), std::vector<float>(rhs.width()));
         for (int i = 0; i < (*this).height(); i++)
             for (int j = 0; j < rhs.width(); j++)
                 for (int k = 0; k < (*this).width(); k++)
@@ -119,7 +120,7 @@ bool operator==(Matrix2D &lhs, Matrix2D &rhs) {
             if (std::abs(lhs[i][j] - rhs[i][j]) > eps) return false;
     return true;
 }
-bool operator==(Matrix2D &lhs, std::vector<std::vector<float>> &rhs) {
+bool operator==(Matrix2D &lhs, Val2D rhs) {
     auto m = Matrix2D(rhs);
     return lhs == m;
 }
